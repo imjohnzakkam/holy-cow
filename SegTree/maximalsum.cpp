@@ -67,11 +67,15 @@ struct segtree {
     int size;
     vector<item> values;
 
+    item NEUTRAL_ELEMENT = {0, 0, 0, 0};
+
     int merge (item a, item b) {
         return {
             max(a.seg, max( b.seg, a.suf+b.pref)),
-            max(a.pref, )
-        }
+            max(a.pref, a.sum+b.pref),
+            max(b.suf, b.sum+a.suf),
+            (a.sum+b.sum)
+        };
     }
 
     item single (int v) {
@@ -82,7 +86,29 @@ struct segtree {
             return (0, 0, 0, v);
         }
     }
-}
+
+    void init (int n) {
+        size = 1;
+        while(size < n) size *= 2;
+        values.resize(2*size);
+    }
+
+    void build (vl &a, int x, int lx, int rx) {
+        if(rx-lx==1) {
+            if(lx < (int)a.size()) {
+                values[x] = single(a[lx]);
+            }
+            return;
+        }
+        int m = (lx+rx)/2;
+        build(a, 2*x+1, lx, m);
+        build(a, 2*x+2, m, rx);
+        values[x] = merge(values[2*x+1], values[2*x+2]);
+    }
+
+    
+
+};
 
 void check()
 {
