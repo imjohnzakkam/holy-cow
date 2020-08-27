@@ -152,7 +152,7 @@ void check()
     cout << st.calc(0, n).seg << endl;
 	while(m--) {
 		ll i, v;
-        cin >> i, v;
+        cin >> i >>  v;
         st.set(i, v);
         cout << st.calc(0, n).seg << endl;
 	}
