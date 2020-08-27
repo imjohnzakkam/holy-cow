@@ -63,10 +63,30 @@ struct item {
     ll seg, pref, suf, sum;
 }
 
+struct segtree {
+    int size;
+    vector<item> values;
 
+    int merge (item a, item b) {
+        return {
+            max(a.seg, max( b.seg, a.suf+b.pref)),
+            max(a.pref, )
+        }
+    }
+
+    item single (int v) {
+        if(v > 0) {
+            return {v, v, v, v};
+        }
+        else {
+            return (0, 0, 0, v);
+        }
+    }
+}
 
 void check()
 {
+    segtree st;
 
     return ;
 }
