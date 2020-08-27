@@ -18,15 +18,11 @@
 #define umap unordered_map<ll, ll>
 #define pll pair<ll,pair<ll, ll>>
 #define clr(x) memset(x,0,sizeof(x))
-#define set(x,k) memset(x,k,sizeof(x))
 #define cy cout << "YES" << endl
 #define  cn cout << "NO" << endl
-#define google cout << "Case #" << ++it << ": " << ans << endl;
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
 using namespace std;
 typedef long long int ll;
-
-ll it = 0, ans = 0;
 
 ll spf[MAXN];
 void sieve()
@@ -60,106 +56,107 @@ vl getFactorization(ll x)
 }
 
 struct item {
-    ll seg, pref, suf, sum;
+	ll seg, pref, suf, sum;
 };
 
 struct segtree {
-    int size;
-    vector<item> values;
+	ll size;
+	vector<item> values;
 
     item NEUTRAL_ELEMENT = {0, 0, 0, 0};
 
-    int merge (item a, item b) {
-        return {
-            max(a.seg, max( b.seg, a.suf+b.pref)),
-            max(a.pref, a.sum+b.pref),
-            max(b.suf, b.sum+a.suf),
-            (a.sum+b.sum)
-        };
-    }
+	void init (ll n) {
+		size = 1;
+		while(size < n) size*=2;
+		values.resize(2*size);
+	}
 
-    item single (int v) {
-        if(v > 0) {
+	item single (ll v) {
+		if(v > 0) {
             return {v, v, v, v};
         }
         else {
-            return (0, 0, 0, v);
+            return {0, 0, 0, v};
         }
-    }
+	}
 
-    void init (int n) {
-        size = 1;
-        while(size < n) size *= 2;
-        values.resize(2*size);
-    }
+	item merge (item a, item b) {
+        return {
+            max(a.seg, max(b.seg, a.suf + b.pref)),
+            max(a.pref, a.sum + b.pref),
+            max(b.suf, b.sum + a.suf),
+            a.sum + b.sum
+        };
+	}
 
-    void build (vl &a, int x, int lx, int rx) {
-        if(rx-lx==1) {
-            if(lx < (int)a.size()) {
-                values[x] = single(a[lx]);
-            }
-            return;
-        }
-        int m = (lx + rx)/2;
-        build(a, 2 * x + 1, lx, m);
-        build(a, 2 * x + 2, m, rx);
-        values[x] = merge(values[2 * x + 1], values[2 * x + 2]);
-    }
+	void build (vl &a, ll x, ll lx, ll rx) {
 
-    void build(vl &a) {
-        build(a, 0, 0, size);
-    }
+		if(rx-lx==1) {
+			if(lx < a.size()) {
+				values[x] = single(a[lx]);
+			}
+			return;
+		}
+		ll m = (lx+rx)/2;
+		build(a, 2*x+1, lx, m);
+		build(a, 2*x+2, m, rx);
+		values[x] = merge(values[2*x+1],  values[2*x+2]);
+	}
 
-    void set(int i, int v, int x, int lx, int rx) {
-        if(rx-lx==1) {
-            values[x] = single(v);
-            return;
-        }
-        int m = (lx + rx)/2;
-        if(i < m) {
-            set(i, v, 2 * x + 1, lx, m);
-        }
-        else {
-            set(i, v, 2 * x+2, m ,rx);
-        }
-        values[x] = merge(vlues[2 * x + 1], values[2 * x + 2]);
-    }
+	void build(vl &a) {
+		build(a, 0, 0, size);
+	}
 
-    void set (int i, int v) {
-        set(i, v, 0, 0, size);
-    }
+	void set (ll i, ll v, ll x, ll lx, ll rx) {
+		if(rx - lx == 1) {
+			values[x] = single(v);
+			return;
+		}
+		ll m = (lx + rx)/2;
+		if(i<m) {
+			set(i, v, 2*x+1, lx, m);
+		}
+		else {
+			set(i, v, 2*x+2, m, rx);
+		}
+		values[x] = merge(values[2*x+1], values[2*x+2]);
+	}
 
-    item calc (int l, int r, int x, int lx, int rx) {
-        if(lx >= r or lx >= rx) return NEUTRAL_ELEMENT;
-        if(lx >= l and rx <= r) return values[x];
-        int m = (lx + rx) / 2;
-        item s1 = calc(l, r, 2 * x + 1, lx, m);
-        item s2 = calc(l, r, 2 * x + 2, m , rx);
-        return merge(s1, s2);
-    }
+	void set (ll i, ll v) {
+		set(i, v, 0, 0, size);
+	}
 
-    item calc (item l, item r) {
-        return calc(l, r, 0, 0, size);
-    }
+	item calc (ll l, ll r, ll x, ll lx, ll rx) {
+		if(lx>=r or l>=rx) return NEUTRAL_ELEMENT;
+		if(lx>=l and rx<=r) return values[x];
+		ll m = (lx+rx)/2;
+		return merge(calc(l,r,2*x+1,lx,m), calc(l,r,2*x+2,m,rx));
+	}
 
+	item calc (ll l, ll r) {
+		return calc(l,r,0,0,size);
+	}
 };
 
 void check()
 {
-    ll n,m;
-    cin >> n >> m;
-    segtree st;
-    st.init(n);
-    vl a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    st.build(a);
-    cout << st.calc(0,n).seg << endl;
-    while(m--) {
-        int i, v;
-        cin >> i >> v;
+	ll n,m;
+	cin >> n >> m;
+	segtree st;
+	st.init(n);
+	vl a(n);
+	for(int i=0;i<n;i++) {
+		cin >> a[i];
+	}
+	st.build(a);
+    cout << st.calc(0, n).seg << endl;
+	while(m--) {
+		ll i, v;
+        cin >> i, v;
         st.set(i, v);
         cout << st.calc(0, n).seg << endl;
-    }
+	}
+
     return ;
 }
 
