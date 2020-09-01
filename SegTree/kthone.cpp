@@ -55,15 +55,13 @@ vl getFactorization(ll x)
     return ret;
 }
 
-struct item {
-	ll seg, pref, suf, sum;
-};
+typedef ll item;
 
 struct segtree {
 	ll size;
 	vector<item> values;
 
-    item NEUTRAL_ELEMENT = {0, 0, 0, 0};
+    item NEUTRAL_ELEMENT = 0;
 
 	void init (ll n) {
 		size = 1;
@@ -72,25 +70,16 @@ struct segtree {
 	}
 
 	item single (ll v) {
-		if(v > 0) {
-            return {v, v, v, v};
-        }
-        else {
-            return {0, 0, 0, v};
-        }
+		return 0;
 	}
 
 	item merge (item a, item b) {
         return {
-            max(a.seg, max(b.seg, a.suf + b.pref)),
-            max(a.pref, a.sum + b.pref),
-            max(b.suf, b.sum + a.suf),
-            a.sum + b.sum
+            (a + b)
         };
 	}
 
 	void build (vl &a, ll x, ll lx, ll rx) {
-
 		if(rx-lx==1) {
 			if(lx < a.size()) {
 				values[x] = single(a[lx]);
@@ -126,15 +115,22 @@ struct segtree {
 		set(i, v, 0, 0, size);
 	}
 
-	item calc (ll l, ll r, ll x, ll lx, ll rx) {
-		if(lx>=r or l>=rx) return NEUTRAL_ELEMENT;
-		if(lx>=l and rx<=r) return values[x];
-		ll m = (lx+rx)/2;
-		return merge(calc(l,r,2*x+1,lx,m), calc(l,r,2*x+2,m,rx));
+	item find (ll k, ll x, ll lx, ll rx) {
+        if (rx - lx == 1) {
+            return lx;
+        }
+        ll m = (lx + rx) / 2;
+        ll sl = values[2 * x + 1];
+        if(k < sl) {
+            return find(k, 2 * x + 1, lx, m);
+        }
+        else {
+            return find(k - sl, 2 * x + 2, m, rx);
+        }
 	}
 
-	item calc (ll l, ll r) {
-		return calc(l,r,0,0,size);
+	item find (ll k) {
+		return find(k,0,0,size);
 	}
 };
 
@@ -149,12 +145,20 @@ void check()
 		cin >> a[i];
 	}
 	st.build(a);
-    cout << st.calc(0, n).seg << endl;
 	while(m--) {
-		ll i, v;
-        cin >> i >>  v;
-        st.set(i, v);
-        cout << st.calc(0, n).seg << endl;
+		ll op;
+        cin >> op;
+        if(op == 1) {
+            ll i;
+            cin >> i;
+            a[i] ^= 1;
+            st.set(i, a[i]);
+        }
+        else {
+            ll k;
+            cin >> k;
+            cout << st.find(k) << endl;
+        }
 	}
     return ;
 }
