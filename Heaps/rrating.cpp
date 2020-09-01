@@ -76,7 +76,7 @@ void check()
             cin >> x;
             max_heap.insert(x);
             auto it = max_heap.end();
-            it--;            
+            it--;
             if(!(++cnt%3)) {
                 min_heap.push(*it);
                 max_heap.erase(it);
