@@ -1,10 +1,12 @@
+// problem : https://www.codechef.com/problems/RRATING
+
 #pragma GCC optimize("O3")
 
 #include<bits/stdc++.h>
 #define sp " "
 #define endl "\n"
 #define MAX 10e9
-#define MAXN 100001 
+#define MAXN 100001
 #define inf_int 2e9
 #define inf_ll 2e18
 #define e 1e-9
@@ -14,7 +16,7 @@
 #define vs vector<string>
 #define vpl vector<pair<ll,ll>>
 #define vpc vector<pair<char,char>>
-#define adj_list vector<vl> 
+#define adj_list vector<vl>
 #define umap unordered_map<ll, ll>
 #define pll pair<ll,pair<ll, ll>>
 #define clr(x) memset(x,0,sizeof(x))
@@ -28,41 +30,74 @@ typedef long long int ll;
 
 ll it = 0, ans = 0;
 
-ll spf[MAXN]; 
-void sieve() 
-{ 
-    spf[1] = 1; 
-    for (auto i=2; i<MAXN; i++) 
-  		spf[i] = i; 
-  	for (auto i=4; i<MAXN; i+=2) 
-        spf[i] = 2; 
-    for (auto i=3; i*i<MAXN; i++) 
+ll spf[MAXN];
+void sieve()
+{
+    spf[1] = 1;
+    for (auto i=2; i<MAXN; i++)
+  		spf[i] = i;
+  	for (auto i=4; i<MAXN; i+=2)
+        spf[i] = 2;
+    for (auto i=3; i*i<MAXN; i++)
     {
-        if (spf[i] == i) 
-        { 
-            for (auto j=i*i; j<MAXN; j+=i) 
-                if (spf[j]==j) 
-                    spf[j] = i; 
-        } 
-    } 
+        if (spf[i] == i)
+        {
+            for (auto j=i*i; j<MAXN; j+=i)
+                if (spf[j]==j)
+                    spf[j] = i;
+        }
+    }
 	return;
-} 
+}
 
-vl getFactorization(ll x) 
-{ 
-    vl ret; 
-    while (x != 1) 
-    { 
-        ret.push_back(spf[x]); 
-        x = x / spf[x]; 
-    } 
-    return ret; 
-} 
+vl getFactorization(ll x)
+{
+    vl ret;
+    while (x != 1)
+    {
+        ret.push_back(spf[x]);
+        x = x / spf[x];
+    }
+    return ret;
+}
 
 
 void check()
 {
-	
+    ll n, cnt = 0;
+    cin >> n;
+    multiset<ll> max_heap; // max heap
+    priority_queue<ll, vector<ll>, greater<ll>> min_heap; // min heap
+    while(n--) {
+        ll op;
+        cin >> op;
+        if(op == 1) {
+            ll x;
+            cin >> x;
+            max_heap.insert(x);
+            auto it = max_heap.end();
+            it--;            
+            if(!(++cnt%3)) {
+                min_heap.push(*it);
+                max_heap.erase(it);
+            }
+            else {
+                if(!min_heap.empty()) {
+                    if((*it) > min_heap.top()) {
+                        ll curr = min_heap.top();
+                        min_heap.pop();
+                        max_heap.insert(curr);
+                        min_heap.push(*it);
+                        max_heap.erase(it);
+                    }
+                }
+            }
+        }
+        else {
+            if(min_heap.empty()) cout << "No reviews yet" << endl;
+            else cout << min_heap.top() << endl;
+        }
+    }
     return ;
 }
 
@@ -70,7 +105,7 @@ int32_t main()
 {
     fastio;
     ll t = 1;
-    cin >> t;
+    // cin >> t;
     while(t--)
         check();
     return 0;
