@@ -1,4 +1,4 @@
-https://www.codechef.com/COVO2020/problems/SIMPUL
+// https://www.codechef.com/COVO2020/problems/SIMPUL
 #pragma GCC optimize("O3")
 
 #include<bits/stdc++.h>
@@ -13,6 +13,7 @@ https://www.codechef.com/COVO2020/problems/SIMPUL
 #define vl vector<ll>
 #define vc vector<char>
 #define vs vector<string>
+#define pl pair<ll,ll>
 #define vpl vector<pair<ll,ll>>
 #define vpc vector<pair<char,char>>
 #define adj_list vector<vl>
@@ -65,10 +66,25 @@ void check()
 {
     ll n, q;
     cin >> n;
-    
+    multiset<pl> mst;
+    for(int i=0;i<n;i++) {
+        ll x,y;
+        cin >> x >> y;
+        mst.insert({x,y});
+    }
     cin >> q;
     while(q--) {
-
+        ll l, r, h, cnt = 0;
+        cin >> l >> r >> h;
+        for(int i=l;i<=r;i++) {
+            auto it = mst.find({i,h});
+            while(it!=mst.end()) {
+                mst.erase(*it);
+                cnt++;
+                it = mst.find({i,h});
+            }
+        }
+        cout << cnt << endl;
     }
     return ;
 }
