@@ -70,13 +70,11 @@ struct segtree {
 	}
 
 	item single (ll v) {
-		return 0;
+		return v;
 	}
 
 	item merge (item a, item b) {
-        return {
-            (a + b)
-        };
+        return a+b;
 	}
 
 	void build (vl &a, ll x, ll lx, ll rx) {
