@@ -87,7 +87,14 @@ void check() {
 	vl a(n), b(n);
 	each(i,a) cin >> i;
 	each(i,b) cin >> i;
-	
+	f(i,0,n) {
+		if(a[i] > b[i]) {
+			
+		}
+		else {
+
+		}
+	}
 	return;
 }
 
