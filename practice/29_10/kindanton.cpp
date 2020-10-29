@@ -82,7 +82,12 @@ vl getFactorization(ll x) {
 }
 
 void check() {
-
+	ll n;
+	cin >> n;
+	vl a(n), b(n);
+	each(i,a) cin >> i;
+	each(i,b) cin >> i;
+	
 	return;
 }
 
