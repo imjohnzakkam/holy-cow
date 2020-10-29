@@ -81,16 +81,16 @@ vl getFactorization(ll x) {
 	return res;
 }
 
-ll fub(ll n) {
-	ll res = 0;
-	
-	return res;
-}
-
 void check() {
-	ll n, ans = 0;
-	cin >> n;	
-	np(1ll<<(fub(n)));
+	ll cipher = 0, k, ans = 0, sum = 0;
+	cin >> cipher >> k;
+	// while(ans) {
+	// 	cipher += ans;
+	// 	ans /= k;
+	// }
+	// np(cipher);
+	
+	np(ans);
 	return;
 }
 
