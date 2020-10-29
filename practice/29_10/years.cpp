@@ -84,27 +84,25 @@ vl getFactorization(ll x) {
 void check() {
 	ll n;
 	cin >> n;
-	vl a(n), b(n);
-	each(i,a) cin >> i;
-	each(i,b) cin >> i;
-	ll f0 = 0, f1 = 0;	// f0 = cnt(-1), f1 = cnt(1)
+	vpl x;
 	f(i,0,n) {
-		if(a[i] > b[i]) {
-			if(!f0) {
-				np("NO");
-				return;
-			}
-		}
-		if(a[i] < b[i]) {
-			if(!f1) {
-				np("NO");
-				return;
-			}
-		}
-		if(a[i] == -1) f0++;
-		if(a[i] == 1) f1++;
+		ll l,r;
+		cin >> l >> r;
+		x.push_back({l, 1}); // 1 for birth
+		x.push_back({r, -1}); // -1 for death
 	}
-	np("YES");
+	sort(all(x));
+	ll cnt = 0;
+	pair<ll, ll> ans = {0, -1};
+	each(i, x) {
+		ll a = i.first, b = i.second;
+		if(b == -1) cnt--;
+		else {
+			cnt++;
+			ans = max(ans, {cnt, -a});
+		}
+	}
+	sp(-ans.second, ans.first), np("");
 	return;
 }
 
@@ -115,7 +113,7 @@ int32_t main() {
 	#endif
 	fastio;
 	ll t = 1;
-	cin >> t;
+	// cin >> t;
 	while (t--)
 		check();
 	return 0;
