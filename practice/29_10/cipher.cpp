@@ -84,11 +84,6 @@ vl getFactorization(ll x) {
 void check() {
 	ll cipher = 0, k, ans = 0, sum = 0;
 	cin >> cipher >> k;
-	// while(ans) {
-	// 	cipher += ans;
-	// 	ans /= k;
-	// }
-	// np(cipher);
 	
 	np(ans);
 	return;
