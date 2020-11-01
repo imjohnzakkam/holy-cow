@@ -82,7 +82,28 @@ vl getFactorization(ll x) {
 }
 
 void check() {
-
+	ll n,k, ans = 0,p = 0,q = 0;
+	cin >> n >> k;
+	ll m[n][n];
+	clr(m);
+	p = q = n*n;
+	vpl a(k);
+	each(i, a) {
+		cin >> i.first >> i.second;
+		ll x = i.first, y = i.second;
+		f(j,0,n) {
+			f(k,0,n) {
+				if(j == x - 1 or k == y - 1) m[j][k] = 1;
+			}
+		}
+	}
+	f(i,0,n) {
+		f(j,0,n) {
+			if(m[i][j]) p--;
+		}
+	}
+	if(p == 0) np("Impossible");
+	else sp(p,q), np("");
 	return;
 }
 
