@@ -86,12 +86,10 @@ void check() {
 	cin >> n;
 	map<ll, ll> m;
 	vl a(n);
-	each(i, a) cin >> i, m[i]++;
-	each(i, m) {
-		ll x = i.first, y = i.second;
-		f(j,0,32) {
-			ans += m[x - j];
-		}
+	each(i, a) {
+		cin >> i;
+		for(ll j = 1; j < 1ll<<33; j<<=1) ans += m[j - i];
+		m[i]++;
 	}
 	np(ans);
 	return;
