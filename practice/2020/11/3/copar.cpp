@@ -82,20 +82,7 @@ vl getFactorization(ll x) {
 }
 
 void check() {
-	ll n, ans = 0, oe = 0, eo = 0, cnt = 0;
-	string s;
-	cin >> n >> s;
-	if(n & 1) {
-		bool ok = false;
-		for(int i = 0; i < n; i += 2) if((s[i] - '0') & 1) ok = true;
-		ans = (ok) ? 1 : 2;
-	}
-	else {
-		bool ok = false;
-		for(int i = 1; i < n; i += 2) if(((s[i] - '0') & 1) == 0) ok = true;
-		ans = (ok) ? 2 : 1;
-	}
-	np(ans);
+	
 	return;
 }
 
