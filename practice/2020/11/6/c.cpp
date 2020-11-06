@@ -82,17 +82,11 @@ vl getFactorization(ll x) {
 }
 
 void check() {
-	ll n,k, ans = 0;
-	cin >> n >> k;	
+	ll n,p;
+	cin >> n >> p;
 	vl a(n);
-	umap mp;
-	each(i, a) cin >> i, mp[i]++;
-	f(i,0,n) {
-		// shit logic
-		ans += mp[k - a[i]];
-		if(k - a[i] == a[i]) ans--;		
-	}
-	np(ans / 2);
+	each(i, a) cin >> i;
+	
 	return;
 }
 
