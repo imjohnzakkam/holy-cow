@@ -20,7 +20,7 @@
 #define fastio ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL);
 using namespace std;
 typedef long long int ll;
-const ll MAXN = 1e6 + 5;
+const ll MAXN = 1e5 + 5;
 const ll mod = 1e9 + 7;
 ll it = 0, ans = 0;
 
@@ -81,60 +81,8 @@ vl getFactorization(ll x) {
 	return res;
 }
 
-struct FenwickTree {
-
-	vl bit;
-	ll n;
-	void init(ll n) {
-		bit.assign(MAXN, 0);
-	}
-
-	void build(vl &a) {
-        for (size_t i = 0; i < a.size(); i++)
-            update(i, a[i]);
-    }
-
-	int query(int r) {
-        int ret = 0;
-        for (; r >= 0; r = (r & (r + 1)) - 1)
-            ret += bit[r];
-        return ret;
-    }
-
-    // int query(int l, int r) {
-    //     return query(r) - query(l - 1);
-    // }
-
-    void update (int idx, int delta) {
-        for (; idx < n; idx |= (idx + 1))
-            bit[idx] += delta;
-    }
-
-};
-
 void check() {
-	// range update point query
-	ll n,m,c;
-	cin >> n >> m >> c;
-	vl a(n,c);
-	FenwickTree ft;
-	ft.init(n);
-	ft.build(a);
-	while(m--) {
-		char op;
-		cin >> op;
-		if(op == 'S') {
-			ll u, v, k;
-			cin >> u >> v >> k;
-			ft.update(u, k);
-			ft.update(v + 1, -k);
-		}
-		else {
-			ll p;
-			cin >> p;
-			np(ft.query(p));
-		}
-	}
+
 	return;
 }
 
