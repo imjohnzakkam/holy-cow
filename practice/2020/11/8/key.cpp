@@ -82,19 +82,7 @@ vl getFactorization(ll x) {
 }
 
 void check() {
-	string s;
-	cin >> s;
-	ll n = s.size(), sum = 0, ans = 1e9;
-	f(mask, 1, (1ll<<n)) {
-		sum = 0;
-		f(i,0,n) {
-			if(mask&(1ll<<i)) sum += s[i] - '0';			
-		}
-		if(sum % 3) continue;
-		ans = min(ans, n - __builtin_popcount(mask));
-	}
-	if(ans == 1e9) ans = -1;
-	np(ans);
+
 	return;
 }
 
@@ -105,7 +93,7 @@ int32_t main() {
 	#endif
 	fastio;
 	ll t = 1;
-	// cin >> t;
+	cin >> t;
 	while (t--)
 		check();
 	return 0;
