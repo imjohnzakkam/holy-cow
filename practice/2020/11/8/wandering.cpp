@@ -82,17 +82,17 @@ vl getFactorization(ll x) {
 }
 
 void check() {
-	string s, ans = "";
-	cin >> s;
-	vector<pair<char, ll>> a(26);
-	char x = 'a';
+	ll n, ans = 0, pos = 0, maxx = 0, curr = 0;
+	cin >> n;
+	vl a(n);
+	each(i, a) cin >> i;
 	each(i, a) {
-		i.first = x++;
-		i.second = 0;
-	}	
-	
-	each(i, a) if(!i.second) cout << i.first;
-	np("");
+		curr += i;
+		maxx = max(maxx, curr);
+		ans = max(ans, pos + maxx);
+		pos += curr;		
+	}
+	np(ans);
 	return;
 }
 
@@ -103,7 +103,7 @@ int32_t main() {
 	#endif
 	fastio;
 	ll t = 1;
-	cin >> t;
+	// cin >> t;
 	while (t--)
 		check();
 	return 0;
