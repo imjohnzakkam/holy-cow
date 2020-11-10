@@ -82,15 +82,15 @@ vl getFactorization(ll x) {
 }
 
 void check() {
-	ll n, ans = 0, pos = 0, maxx = 0, curr = 0;
+	ll n, ans = 0, pos = 0, maxx = 0, pre = 0;
 	cin >> n;
 	vl a(n);
 	each(i, a) cin >> i;
 	each(i, a) {
-		curr += i;
-		maxx = max(maxx, curr);
+		pre += i;
+		maxx = max(maxx, pre);
 		ans = max(ans, pos + maxx);
-		pos += curr;		
+		pos += pre;
 	}
 	np(ans);
 	return;

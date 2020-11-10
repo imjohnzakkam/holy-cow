@@ -82,10 +82,20 @@ vl getFactorization(ll x) {
 }
 
 void check() {
-	string s, ans = "";
-	cin >> s;
-	ll n = s.size(); 
-	
+	ll n;cin>>n;
+	ll a[n];
+	for(ll i=0;i<n;i++) cin>>a[i];
+	ll pre[n];
+	pre[0]=a[0];
+	for(ll i=1;i<n;i++) pre[i] = a[i]+pre[i-1];
+	ll ma=a[0];ll z=pre[0];
+	ll ans= max ((ll)0,z + pre[0]);
+	for(ll i=1;i<n-1;i++){
+	    ma=max(pre[i],ma);
+	    ans=max(ans,ma+z+pre[i]);
+	    z=z+pre[i];
+	}
+	cout << max(ans,z+pre[n-1]) << "\n";
 	return;
 }
 
@@ -96,7 +106,7 @@ int32_t main() {
 	#endif
 	fastio;
 	ll t = 1;
-	cin >> t;
+	// cin >> t;
 	while (t--)
 		check();
 	return 0;
