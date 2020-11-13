@@ -81,18 +81,18 @@ vl getFactorization(ll x) {
 	return res;
 }
 
-
 void check() {
-	ll n, ans = 0, curr = 0;
-	cin >> n;
-	vl a(n);
-	each(i, a) cin >> i;
-	curr -= a[0], ans = curr;
-	f(i,0,n - 1) {
-		curr += (a[i] - a[i + 1]);
-		if(curr < ans) ans = curr;
+	string s;
+	cin >> s;
+	ll ans = 0;
+	each(i, s) {
+		ll x = (ll)(i - '0') + ans;
+		ans += x;
 	}
-	np(max(0ll, -ans));
+	if(ans > 9) {
+		
+	}
+	np(ans);
 	return;
 }
 

@@ -81,18 +81,8 @@ vl getFactorization(ll x) {
 	return res;
 }
 
-
 void check() {
-	ll n, ans = 0, curr = 0;
-	cin >> n;
-	vl a(n);
-	each(i, a) cin >> i;
-	curr -= a[0], ans = curr;
-	f(i,0,n - 1) {
-		curr += (a[i] - a[i + 1]);
-		if(curr < ans) ans = curr;
-	}
-	np(max(0ll, -ans));
+
 	return;
 }
 
@@ -103,7 +93,7 @@ int32_t main() {
 	#endif
 	fastio;
 	ll t = 1;
-	// cin >> t;
+	cin >> t;
 	while (t--)
 		check();
 	return 0;
