@@ -81,8 +81,54 @@ vl getFactorization(ll x) {
 	return res;
 }
 
+struct ftree {
+	vl bit;
+	void init (vl a) {
+		ll n = a.size();
+		bit.assign(n, 0);
+		f(i,0,n) add(i, a[i], n);
+	}
+	ll sum(ll r) {
+        ll ret = 0;
+        for (; r >= 0; r = (r & (r + 1)) - 1)
+            ret += bit[r];
+        return ret;
+    }
+    ll sum(ll l, ll r) {
+        return sum(r) - sum(l - 1);
+    }
+	void add(ll i, ll x, ll n) {
+		for(;i < n; i |= (i + 1)) {
+			bit[i] += x;
+		}
+	}
+};
+
 void check() {
-	
+	ftree ft1, ft2;
+	ll n;
+	cin >> n;
+	vl a(n), b(n);
+	each(i, a) cin >> i;
+	b = a;
+	sort(all(b));
+	ft1.init(a), ft2.init(b);
+	ll m;
+	cin >> m;
+	while(m--) {
+		ll op;
+		cin >> op;
+		if(op == 1) {
+			ll l,r;
+			cin >> l >> r;
+			np(ft1.sum(l, r));
+		}
+		else {
+			ll l,r;
+			cin >> l >> r;
+			np(ft2.sum(l,r));
+		}
+	}
 	return;
 }
 
