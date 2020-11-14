@@ -82,12 +82,27 @@ vl getFactorization(ll x) {
 }
 
 void check() {
-	string s;
-	cin >> s;
-	string x = s;
-	reverse(all(x));
-	s += x;
-	np(s);
+	ll n;
+	cin >> n;
+	vl a(n);
+	each(i, a) cin >> i;
+	ll l = -2, r = -1, cnt = 0;
+	f(i,0,n - 1) {
+		if(a[i] < a[i + 1]) {
+			if(l == 0) l = i, r = i;
+			else r = i;
+			cnt++;
+		}
+		else {
+			if(l >= 0 and r >= 0) {
+				np("No");
+				return;
+			}
+		}
+	}
+	if(cnt == n or cnt == 0) np("yes"), sp(1, n), np("");
+	else if(l == r) np("NO");
+	else np("YES"), sp(l + 1, r + 1), np("");
 	return;
 }
 
