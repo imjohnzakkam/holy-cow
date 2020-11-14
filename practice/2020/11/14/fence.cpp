@@ -81,61 +81,20 @@ vl getFactorization(ll x) {
 	return res;
 }
 
-struct ftree {
-	vl bit;
-	void init (vl a) {
-		ll n = a.size();
-		bit.assign(n, 0);
-		f(i,0,n) add(i, a[i], n);
-	}
-	ll sum(ll r) {
-        ll ret = 0;
-        for (; r >= 0; r = (r & (r + 1)) - 1)
-            ret += bit[r];
-        return ret;
-    }
-    ll sum(ll l, ll r) {
-        return sum(r) - sum(l - 1);
-    }
-	void add(ll i, ll x, ll n) {
-		for(;i < n; i |= (i + 1)) {
-			bit[i] += x;
-		}
-	}
-};
-
 void check() {
-	// ftree ft1, ft2;
-	ll n;
-	cin >> n;
-	vl a(n), b(n);
+	ll n, k, ans = 0, sum = 0, curr = 0;
+	cin >> n >> k;
+	vl a(n);
 	each(i, a) cin >> i;
-	b = a;
-	sort(all(b));
-	// ft1.init(a), ft2.init(b);
-	vl p1(n), p2(n);
-	p1[0] = a[0], p2[0] = b[0];
-	f(i,1,n) p1[i] = a[i] + p1[i - 1], p2[i] = a[i] + p2[i - 1];
-	// spv(p1, n), np("");
-	// spv(p2, n), np("");
-	ll m;
-	cin >> m;
-	while(m--) {
-		ll op;
-		cin >> op;
-		if(op == 1) {
-			ll l,r;
-			cin >> l >> r;
-			if(l > 1) np(p1[r - 1] - p1[l - 2]);
-			else np(p1[r - 1]);
-		}
-		else {
-			ll l,r;
-			cin >> l >> r;
-			if(l > 3) np(p2[r - 1] - p2[l - 3]);
-			else np(p2[r - 1]);
-		}
+	f(i,0,k) sum += a[i];
+	curr = sum;
+	ll cnt = 0;
+	f(i,1,n - k + 1) {
+		// sp(curr, ans), np("");
+		curr += (a[i + k - 1] - a[cnt++]);
+		if(curr < sum) sum = curr, ans = i;
 	}
+	np(ans + 1);
 	return;
 }
 
