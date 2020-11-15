@@ -81,12 +81,32 @@ vl getFactorization(ll x) {
 	return res;
 }
 
+
 void check() {
-	ll n,f, ans = 0;
-	cin >> n >> f;
+	ll n,x, ans = 0;
+	cin >> n >> x;
 	vl k(n), l(n);
 	f(i,0,n) cin >> k[i] >> l[i];
-	
+	vpl b(n);
+	f(i,0,n) b[i] = {l[i] - k[i], i};
+	sort(all(b));
+	reverse(all(b));
+	ll cnt[n];
+	clr(cnt);
+	ll ex = 0;
+	f(i,0,n) {
+		if(ex == x) {
+			break;
+		}
+		if(k[b[i].second] > 0) {
+			ans += (min(2*k[b[i].second], l[b[i].second]));
+			cnt[b[i].second] = 1;
+			ex++;
+		}
+	}
+	f(i,0,n) {
+		if(cnt[i] == 0) ans += min(k[i], l[i]);
+	}
 	np(ans);
 	return;
 }
