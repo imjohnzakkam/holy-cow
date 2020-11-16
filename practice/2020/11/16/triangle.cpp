@@ -20,7 +20,7 @@
 #define fastio ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL);
 using namespace std;
 typedef long long int ll;
-const ll MAXN = 4*1e4 + 5;
+const ll MAXN = 1e5 + 5;
 const ll mod = 1e9 + 7;
 ll it = 0, ans = 0;
 
@@ -81,34 +81,20 @@ vl getFactorization(ll x) {
 	return res;
 }
 
-ll a[MAXN][MAXN];
-
 void check() {
-	ll n, m, k, q;
-	cin >> n >> m >> k >> q;
-	memset(a, 1, sizeof(a));
-	f(i,0,k) {
-		ll x, y;
-		cin >> x >> y;
-		a[x - 1][y - 1] = 0;
-	}
-	ll cnt = 0;
-	f(i,0,n) {
-		f(j,0,m) {
-			if(a[i][j]) {
-				a[i][j] = (cnt++) % 3 + 1;
-			}
+	ll n;
+	cin >> n;
+	vl a(n);
+	each(i, a) cin >> i;
+	ans = 0;
+	sort(all(a));
+	f(i,1,n - 1) {
+		if(a[i - 1] + a[i] > a[i + 1]) {
+			np("YES");
+			return;
 		}
 	}
-	while(q--) {
-		ll x, y; 
-		cin >> x >> y;
-		ll pt = a[x - 1][y - 1];
-		if(pt == 0) np("Waste");
-		else if(pt == 1) np("Carrots");
-		else if(pt == 2) np("Kiwis");
-		else np("Grapes");
-	}
+	np("NO");
 	return;
 }
 

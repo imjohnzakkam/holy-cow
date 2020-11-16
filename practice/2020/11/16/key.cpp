@@ -20,7 +20,7 @@
 #define fastio ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL);
 using namespace std;
 typedef long long int ll;
-const ll MAXN = 4*1e4 + 5;
+const ll MAXN = 1e5 + 5;
 const ll mod = 1e9 + 7;
 ll it = 0, ans = 0;
 
@@ -81,34 +81,49 @@ vl getFactorization(ll x) {
 	return res;
 }
 
-ll a[MAXN][MAXN];
-
 void check() {
-	ll n, m, k, q;
-	cin >> n >> m >> k >> q;
-	memset(a, 1, sizeof(a));
-	f(i,0,k) {
-		ll x, y;
-		cin >> x >> y;
-		a[x - 1][y - 1] = 0;
-	}
-	ll cnt = 0;
+	ll n, m, x;
+	cin >> n >> m >> x;
+	char a[n][m];
+	map<char, ll> mp;
 	f(i,0,n) {
 		f(j,0,m) {
-			if(a[i][j]) {
-				a[i][j] = (cnt++) % 3 + 1;
-			}
+			cin >> a[i][j];
+			mp[a[i][j]]++;
 		}
 	}
-	while(q--) {
-		ll x, y; 
-		cin >> x >> y;
-		ll pt = a[x - 1][y - 1];
-		if(pt == 0) np("Waste");
-		else if(pt == 1) np("Carrots");
-		else if(pt == 2) np("Kiwis");
-		else np("Grapes");
+	ll q, flag = 0;
+	string s;
+	cin >> q >> s;	
+	each(i, s) {
+		if(i >= 'A' and i <= 'Z') flag++;		
 	}
+	ans = 0;
+	if(find(all(s), 'S') == s.end()) {
+		np(-1);
+		return;
+	}
+	else {
+		if(flag != q) {
+			np(-1);
+			return;
+		}
+		else {
+			ll cnt = 0;
+			each(i, s) {
+				if(mp[i]) {
+					if(i >= 'A' and i <= 'Z') {
+						
+					}
+				}
+				else {
+					np(-1);
+					return;
+				}
+			}			
+		}
+	}
+	np(ans);
 	return;
 }
 
