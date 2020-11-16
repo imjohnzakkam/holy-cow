@@ -81,13 +81,16 @@ vl getFactorization(ll x) {
 	return res;
 }
 
-
 void check() {
-	ll n,x, ans = 0;
-	cin >> n >> x;
-	vl k(n), l(n);
-	f(i,0,n) cin >> k[i] >> l[i];
-	
+	string s;
+	cin >> s;
+	umap m;
+	each(i, s) m[i - 'a']++;
+	ll ans = 0;
+	if(m[0]) {
+			
+	}	
+	np(ans);
 	return;
 }
 
@@ -98,7 +101,7 @@ int32_t main() {
 	#endif
 	fastio;
 	ll t = 1;
-	// cin >> t;
+	cin >> t;
 	while (t--)
 		check();
 	return 0;
