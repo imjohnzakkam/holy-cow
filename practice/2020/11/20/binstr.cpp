@@ -82,7 +82,20 @@ vl getFactorization(ll x) {
 }
 
 void check() {
-	
+	ll n, ans = 1;
+	string s;	
+	cin >> n >> s;
+	char req = '0';
+	if(s[0] == '0') req = '1';
+	for(int i = 1; i < n; i++) {
+		if(s[i] != req) {
+			
+			ans++;
+		}
+		if(req == '1') req = '0';
+		else req = '1';
+	}
+	np(ans);
 	return;
 }
 
