@@ -1,3 +1,3 @@
 import os
-cmd = "git push"
+cmd = "git add . && git commit -m upd && git push"
 os.system(cmd)
