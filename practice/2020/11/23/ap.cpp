@@ -85,8 +85,7 @@ void check() {
 	ll n;
 	cin >> n;
 	vl a(n);
-	each(i, a) cin >> i;
-	
+	each(i, a) cin >> i;		
 	return;
 }
 
