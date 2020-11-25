@@ -84,7 +84,10 @@ vl getFactorization(ll x) {
 void check() {
 	ll n;
 	cin >> n;
-	
+	umap mp;
+	for(const auto &[a, b] : mp) if (a > b) {
+		
+	}
 	return;
 }
 
