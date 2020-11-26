@@ -89,13 +89,16 @@ void check() {
 	ll i = 0, tc = n, curr_tc = 0, nn = 0;
 	while(i < n) {
 		ll sz = a[i];
-		while(sz-- and i < n) i++;
-		if(sz) {
+		sp(sz);
+		while((sz - 1) and i < n) i++, --sz;
+		sp(sz, i);
+		if(sz > 0) {
 			ans += sz;
 			break;
 		}
 		curr_tc++;
 	}
+	sp(ans, curr_tc);
 	ans += (tc - curr_tc);
 	np(ans);
 	return;
