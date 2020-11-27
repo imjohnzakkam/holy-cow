@@ -89,25 +89,25 @@ ll func (ll x, ll y) {
 }
 
 void init (vl &a) {
+	clr(table);
 	ll n = a.size();
 	for(int i = 0; i < n; i++) table[i][0] = a[i];
-	for(int j = 1; j <= k; j++) {
+	for(int j = 1; (1 << j) <= n; j++) {
 		for(int i = 0; i + (1 << j) <= n; i++) {
 			table[i][j] = func(table[i][j - 1], table[i + (i << (j - 1))][j - 1]);
 		}
 	}
 }
 
-ll logs[maxn + 1];
-
-void compute_log () {
-	logs[1] = 0;
-	for(int i = 2; i <= maxn; i++) logs[i] = logs[i / 2] + 1;
-}
-
 ll query (ll l, ll r) {
-	ll j = logs[r - l + 1];
-	return min(table[l][j - 1], table[r - (1 << (j - 1))][j - 1]);
+	ll res = 0;
+	for(int j = k; j >= 0; j--) {
+		if((1 << j) <= r - l + 1) {
+			res += table[l][j];
+			l += (1 << j);
+		}
+	}
+	return res;
 }
 
 void check() {
@@ -116,7 +116,6 @@ void check() {
 	vl a(n);
 	each(i, a) cin >> i;
 	init(a);
-	compute_log();
 	ll q;
 	cin >> q;
 	while(q--) {
