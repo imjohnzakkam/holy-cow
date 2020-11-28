@@ -93,7 +93,7 @@ int32_t main() {
 	#endif
 	fastio;
 	ll t = 1;
-	cin >> t;
+	// cin >> t;
 	while (t--)
 		check();
 	return 0;
