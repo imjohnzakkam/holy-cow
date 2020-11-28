@@ -81,8 +81,32 @@ vl getFactorization(ll x) {
 	return res;
 }
 
+adj_list adj;
+queue<ll> q;
+
 void check() {
-	
+	ll n, m, s, x, y;
+	cin >> n >> m >> s;
+	for(int i = 0;i < m; i++) {
+		cin >> x >> y;
+		adj[x].push_back(y);
+		adj[y].push_back(x);
+	}
+	vector<bool> used(n);
+	q.push(s);
+	used[s - 1] = true;
+	while(!q.empty()) {
+		ll v = q.front();
+		q.pop();
+		for(auto &u: adj[v]) {
+			if(!used[u]) {
+				used[u] = true;
+				q.push(u);
+			}
+		}
+	}
+	ans = count(all(used), true);
+	cout << (ans + 2 * (n - ans) - m) << '\n';
 	return;
 }
 
