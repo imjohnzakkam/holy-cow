@@ -14,7 +14,7 @@
 #define umap unordered_map<ll, ll>
 #define pll pair<ll, pair<ll, ll>>
 #define clr(x) memset(x, 0, sizeof(x))
-#define f(i, a, b) for (int i = a; i < b; i++)
+#define f(i, a, b) for (ll i = a; i < b; i++)
 #define fr(i, a, b) for (int i = a; i >= b; i--)
 #define google cout << "Case #" << ++it << ": " << ans << endl;
 #define fastio ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL);
@@ -84,7 +84,7 @@ vl getFactorization(ll x) {
 void check() {
 	ll n;
 	cin >> n;
-	f(i,2,sqrt(n)) {
+	f(i,2,sqrt(n) + 1) {
 		while(n % (i * i) == 0) n /= i;
 	}
 	np(n);
