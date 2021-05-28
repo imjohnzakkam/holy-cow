@@ -9,7 +9,19 @@ const ll maxn = 1e5 + 7;
 const ll mod = 1e9 + 7;
 
 void solve() {
-	
+	ll n, x = mod, pos = -1;
+	cin >> n;
+	vector<ll> a(n);
+	for(int i = 0; i < n; i++) {
+		cin >> a[i];
+		if(a[i] < x) x = a[i], pos = i;
+	}
+	cout << n - 1 << endl;
+	for(int i = 0; i < n; i++) {
+		if(i != pos) {
+			cout << pos + 1 << ' ' << i + 1 << ' ' << x << ' ' << x + abs(pos - i) << endl;
+		}
+	}
 	return;
 }
 
